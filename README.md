@@ -1,5 +1,6 @@
-# AI-Powered-Recipe-Recommendation
-AI Powered Recipe Recommendation
+# Recipe-Recommendation-Food-Recommendation-Python-Machine-Learning
+
+# Recipe Recommendation System
 
 ## Introduction  
 This project is a **Recipe Recommendation System** designed to suggest recipes based on user-provided nutritional values and ingredients. It combines **machine learning techniques** with a user-friendly **web application framework** to deliver personalized recipe recommendations.
@@ -94,8 +95,8 @@ This **Recipe Recommendation System** integrates **data processing**, **machine 
 
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/varshasathyaprakash/AI-Powered-Recipe-Recommendation.git
-   
+   git clone <repository-url>
+
 2. Install dependencies:   
    ```bash
    pip install -r requirements.txt

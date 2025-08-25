@@ -1,0 +1,105 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hi",
+        "Hey",
+        "How are you",
+        "Is anyone there?",
+        "Hello",
+        "Good day"
+      ],
+      "responses": [
+        "Hello! Welcome to the recipe recommendation system. How can I assist you?",
+        "Hi there! Looking for a recipe? Let's get started!",
+        "Hey! Tell me your ingredients, and I'll recommend recipes for you."
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "See you later", "Goodbye"],
+      "responses": [
+        "Goodbye! Hope you enjoy your meal!",
+        "See you later! Let me know if you need more recipe ideas.",
+        "Bye! Come back anytime for more recipes."
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["Thanks", "Thank you", "That's helpful", "Thank's a lot!"],
+      "responses": [
+        "You're welcome! Enjoy cooking!",
+        "Happy to help! Let me know if you need more recipes.",
+        "My pleasure! Hope you find the perfect recipe."
+      ]
+    },
+    {
+      "tag": "ingredients",
+      "patterns": [
+        "I have these ingredients",
+        "Can you recommend a recipe?",
+        "What can I cook with these?",
+        "Suggest recipes for my ingredients"
+      ],
+      "responses": [
+        "Sure! Please list the ingredients you have.",
+        "Let me know the ingredients you want to use, and I'll suggest some recipes.",
+        "Tell me what ingredients you have, and I'll find recipes for you!"
+      ]
+    },
+    {
+      "tag": "popular_recipes",
+      "patterns": [
+        "What are some popular recipes?",
+        "Suggest me a famous recipe",
+        "Tell me the trending recipes"
+      ],
+      "responses": [
+        "Some popular recipes are Butter Chicken, Paneer Tikka, and Masala Dosa.",
+        "You can try trending recipes like Chicken Biryani or Veg Pulao.",
+        "Popular recipes include Dal Makhani, Rajma, and Pani Puri. Want to try one?"
+      ]
+    },
+    {
+      "tag": "dietary_preferences",
+      "patterns": [
+        "Do you have vegetarian options?",
+        "Can you suggest vegan recipes?",
+        "What about gluten-free recipes?",
+        "Any low-calorie recipes?"
+      ],
+      "responses": [
+        "Yes, we have recipes for various dietary preferences. Let me know your choice!",
+        "Sure, I can recommend vegetarian, vegan, or gluten-free recipes. Please specify your preference.",
+        "We offer recipes tailored to dietary needs like low-calorie or vegan options. What are you looking for?"
+      ]
+    },
+    {
+      "tag": "cuisine",
+      "patterns": [
+        "Can you suggest Indian recipes?",
+        "What about Italian recipes?",
+        "Suggest recipes from Mexican cuisine"
+      ],
+      "responses": [
+        "Sure! Let me know the cuisine you're interested in, and I'll recommend recipes.",
+        "Indian, Italian, Mexican, and more! Let me know your preference.",
+        "I can suggest recipes from various cuisines. Which one would you like to explore?"
+      ]
+    },
+    {
+      "tag": "funny",
+      "patterns": [
+        "Tell me a food joke!",
+        "Tell me something funny about cooking!",
+        "Do you know a recipe joke?"
+      ],
+      "responses": [
+        "Why did the tomato turn red? Because it saw the salad dressing!",
+        "Why don't eggs tell jokes? They might crack up!",
+        "What do you call a fake noodle? An impasta!"
+      ]
+    }
+  ]
+}

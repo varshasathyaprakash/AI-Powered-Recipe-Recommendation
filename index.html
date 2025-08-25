@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CookEase AI - Your Culinary Assistant</title>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        /* General Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 400;
+            font-size: 100%;
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/static/bgg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            color: #fff;
+        }
+
+        *, html {
+            --primaryGradient: linear-gradient(93.12deg, #581B98 0.52%, #9C1DE7 100%);
+            --secondaryGradient: linear-gradient(268.91deg, #581B98 -2.14%, #9C1DE7 99.69%);
+            --primaryBoxShadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+            --secondaryBoxShadow: 0px -10px 15px rgba(0, 0, 0, 0.1);
+            --primary: #581B98;
+        }
+
+        /* Container and Form Styles */
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            color: #333;
+            position: relative; /* Needed for proper stacking context */
+
+        }
+
+        .form-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+         /* Recipe Card Styles */
+        .recipe-card {
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .recipe-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .recipe-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .modal-content {
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+        }
+        .modal-body {
+            color: #000; /* Ensure black text in the modal */
+        }
+        /* CHATBOX STYLES */
+         .chatbox {
+             position: fixed;
+             bottom: 30px;
+            right: 30px;
+            z-index: 1001; /* Ensure it is above all other content */
+
+         }
+
+         /* CONTENT IS CLOSE */
+        .chatbox__support {
+             display: flex;
+             flex-direction: column;
+             background: #eee;
+             width: 300px;
+            height: 350px;
+            z-index: -123456;
+            opacity: 0;
+             transition: all .5s ease-in-out;
+         }
+
+        /* CONTENT ISOPEN */
+        .chatbox--active {
+            transform: translateY(-40px);
+            z-index: 123456;
+            opacity: 1;
+        }
+
+         /* BUTTON */
+         .chatbox__button {
+            text-align: right;
+         }
+
+          .send__button {
+             padding: 6px;
+             background: transparent;
+             border: none;
+             outline: none;
+            cursor: pointer;
+          }
+
+         /* HEADER */
+        .chatbox__header {
+            position: sticky;
+             top: 0;
+            background: orange;
+         }
+
+        /* MESSAGES */
+         .chatbox__messages {
+            margin-top: auto;
+            display: flex;
+            overflow-y: scroll;
+            flex-direction: column-reverse;
+         }
+
+         .messages__item {
+            background: orange;
+            max-width: 60.6%;
+            width: fit-content;
+          }
+
+        .messages__item--operator {
+            margin-left: auto;
+         }
+
+        .messages__item--visitor {
+            margin-right: auto;
+         }
+
+        /* FOOTER */
+         .chatbox__footer {
+             position: sticky;
+             bottom: 0;
+        }
+
+        .chatbox__support {
+            background: #f9f9f9;
+             height: 450px;
+            width: 350px;
+             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+             border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        /* HEADER */
+        .chatbox__header {
+            background: var(--primaryGradient);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+             justify-content: center;
+            padding: 15px 20px;
+             border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            box-shadow: var(--primaryBoxShadow);
+        }
+
+        .chatbox__image--header {
+            margin-right: 10px;
+        }
+
+        .chatbox__heading--header {
+             font-size: 1.2rem;
+            color: white;
+         }
+
+        .chatbox__description--header {
+             font-size: .9rem;
+            color: white;
+        }
+
+        /* Messages */
+        .chatbox__messages {
+            padding: 0 20px;
+        }
+
+        .messages__item {
+            margin-top: 10px;
+            background: #151414;
+            padding: 8px 12px;
+            max-width: 70%;
+        }
+
+        .messages__item--visitor,
+        .messages__item--typing {
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+             border-bottom-right-radius: 20px;
+        }
+
+        .messages__item--operator {
+             border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+             border-bottom-left-radius: 20px;
+            background: var(--primary);
+            color: white;
+        }
+
+        /* FOOTER */
+        .chatbox__footer {
+           display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 20px;
+            background: var(--secondaryGradient);
+             box-shadow: var(--secondaryBoxShadow);
+            border-bottom-right-radius: 10px;
+             border-bottom-left-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .chatbox__footer input {
+            width: 80%;
+             border: none;
+            padding: 10px 10px;
+            border-radius: 30px;
+            text-align: left;
+        }
+
+        .chatbox__send--footer {
+            color: white;
+         }
+
+        .chatbox__button button,
+        .chatbox__button button:focus,
+        .chatbox__button button:visited {
+            padding: 10px;
+            background: white;
+            border: none;
+            outline: none;
+            border-top-left-radius: 50px;
+            border-top-right-radius: 50px;
+            border-bottom-left-radius: 50px;
+            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+
+    </style>
+</head>
+<body>
+   <div class="cont">
+        <div class="chatbox">
+            <div class="chatbox__support">
+                <div class="chatbox__header">
+                    <div class="chatbox__image--header">
+                        <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-5--v1.png" alt="image">
+                    </div>
+                    <div class="chatbox__content--header">
+                        <h4 class="chatbox__heading--header">Chat support</h4>
+                        <p class="chatbox__description--header">Hi. My name is Sam. How can I help you?</p>
+                    </div>
+                </div>
+                <div class="chatbox__messages">
+                    <div></div>
+                </div>
+                <div class="chatbox__footer">
+                    <input type="text" placeholder="Write a message...">
+                    <button class="chatbox__send--footer send__button">Send</button>
+                </div>
+            </div>
+            <div class="chatbox__button">
+                <button><img src="{{ url_for('static', filename='images/chatbox-icon.svg') }}" /></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h1 class="text-center">Discover Delicious Recipes with CookEase AI</h1>
+        <div class="form-container mt-4">
+            <form method="post">
+                <div class="form-group">
+                    <label for="ingredients">What Ingredients Do You Have?</label>
+                    <input type="text" class="form-control" id="ingredients" name="ingredients" placeholder="Enter ingredients (e.g., rice, tomato)" required>
+                </div>
+                <div class="form-group">
+                    <label for="region">Filter by Region</label>
+                    <select class="form-control" id="region" name="region">
+                        <option value="All">All</option>
+                        <option value="North Indian">North Indian</option>
+                        <option value="South Indian">South Indian</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Get Recommendations</button>
+            </form>
+        </div>
+
+        {% if recommendations %}
+        <div class="mt-5">
+            <h2>Here are your Recommended Recipes</h2>
+            <p>Based on the given ingredients: "{{ request.form['ingredients'] }}" and region: "{{ request.form['region'] }}"</p>
+            <div class="row">
+                {% for recipe in recommendations %}
+                <div class="col-md-4">
+                    <div class="card recipe-card">
+                        <img class="card-img-top recipe-image" src="{{ recipe['image_url'] }}" alt="{{ recipe['recipe_name'] }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ recipe['recipe_name'] }}</h5>
+                            <p><strong>Region:</strong> {{ recipe['Region'] }}</p>
+                            <p class="card-text">{{ recipe['Description'] }}</p>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#recipeModal" onclick="showDetails('{{ recipe['recipe_name'] }}', '{{ recipe['ingredients_list'] }}', '{{ recipe['Procedure'] }}', '{{ recipe['nutritional_value'] }}')">View More</button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="recipeModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="recipeModalLabel">Recipe Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5 id="modalRecipeName"></h5>
+                    <p><strong>Ingredients:</strong> <span id="modalIngredients"></span></p>
+                    <p><strong>Procedure:</strong> <span id="modalProcedure"></span></p>
+                    <p><strong>Nutritional Value:</strong> <span id="modalNutritionalValue"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+     <script>
+        function showDetails(name, ingredients, procedure, nutritionalValue) {
+            document.getElementById('modalRecipeName').textContent = name;
+            document.getElementById('modalIngredients').textContent = ingredients;
+            document.getElementById('modalProcedure').textContent = procedure;
+            document.getElementById('modalNutritionalValue').textContent = nutritionalValue;
+        }
+
+        document.getElementById('region').addEventListener('change', function() {
+            const selectedRegion = this.value;
+            const recipes = document.querySelectorAll('.recipe-card-wrapper');
+            recipes.forEach(recipe => {
+                const recipeRegion = recipe.getAttribute('data-region');
+                if (selectedRegion === 'All' || recipeRegion === selectedRegion) {
+                    recipe.style.display = 'block';
+                } else {
+                    recipe.style.display = 'none';
+                }
+            })
+            });
+    
+
+     const chatButton = document.querySelector('.chatbox__button');
+     const chatSupport = document.querySelector('.chatbox__support');
+
+     chatButton.addEventListener('click', () => {
+          chatSupport.classList.toggle('chatbox--active');
+        });
+
+    </script>
+    <script src="https://static.elfsight.com/platform/platform.js" async></script>
+    <div class="elfsight-app-56f8190d-e11c-4812-8e08-81cfcdc39f02" data-elfsight-app-lazy></div>
+
+    <script>
+        $SCRIPT_ROOT = {{ request.script_root|tojson }};
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
