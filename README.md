@@ -10,7 +10,7 @@ This project is a **Recipe Recommendation System** designed to suggest recipes b
 ## Dataset  
 
 ### Overview  
-The dataset used for this project is a CSV file named `recipe_final (1).csv`, containing detailed information about various recipes, which is essential for building the recommendation system.  
+The dataset used for this project is a CSV file named `cleaned_updated_recipes.csv`, containing detailed information about various recipes, which is essential for building the recommendation system.  
 
 ### Features  
 The dataset includes the following columns:  
@@ -95,7 +95,7 @@ This **Recipe Recommendation System** integrates **data processing**, **machine 
 
 1. Clone the repository:  
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/varshasathyaprakash/AI-Powered-Recipe-Recommendation
 
 2. Install dependencies:   
    ```bash
